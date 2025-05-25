@@ -1,0 +1,9 @@
+{
+  "cli": {
+    "version": ">= 0.58.0"
+  },
+  "build": {
+    "production": { "distribution": "store" },
+    "preview": { "distribution": "internal" }
+  }
+}

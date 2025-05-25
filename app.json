@@ -1,0 +1,49 @@
+{
+  "expo": {
+    "name": "My Football App",
+    "slug": "my-football-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icons/app-icon.png",
+    "splash": {
+      "image": "./assets/splash/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#121212"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/my-football-app",
+      "fallbackToCacheTimeout": 0
+    },
+    "scheme": "myfootballapp",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icons/app-icon.png",
+        "backgroundColor": "#121212"
+      },
+      "package": "com.fannoth.myfootballapp"
+    },
+    "newArchEnabled": true,
+    "web": {
+      "favicon": "./assets/icons/app-icon.png"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "runtimeVersion": {
+      "policy": "nativeVersion"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c113a616-fd18-4bcb-b2e3-32eacb05e579"
+      },
+      "router": {}
+    },
+    "owner": "fannoth"
+  }
+}
