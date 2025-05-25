@@ -3,7 +3,17 @@
     "version": ">= 0.58.0"
   },
   "build": {
-    "production": { "distribution": "store" },
-    "preview": { "distribution": "internal" }
+    "production": {
+      "distribution": "store",
+      "env": {
+        "FOOTBALL_API_KEY": "secret:FOOTBALL_API_KEY"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "env": {
+        "FOOTBALL_API_KEY": "secret:FOOTBALL_API_KEY"
+      }
+    }
   }
 }

@@ -2,11 +2,11 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
 
-import { API_KEY, BASE_URL } from '@constants/api';
+import { BASE_URL } from '@constants/api';
 
 const api = axios.create({
   baseURL: BASE_URL,
-  headers: { 'x-apisports-key': API_KEY },
+  headers: { 'x-apisports-key': process.env.FOOTBALL_API_KEY || '' },
 });
 
 const CACHE_TTL = 24 * 60 * 60 * 1000;
