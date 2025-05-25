@@ -3,8 +3,9 @@ import { Text, StyleSheet, ScrollView, ActivityIndicator, Button } from 'react-n
 import { useDispatch, useSelector } from 'react-redux';
 import { getTopLeagues } from '@redux/slices/leaguesSlice';
 import { RootState, AppDispatch } from '@redux/store';
-import LeagueCard from '@components/LeagueCard';
 import { Stack, useRouter } from 'expo-router';
+
+import LeagueCard from '@components/LeagueCard';
 
 export default function HomeScreen() {
   const dispatch = useDispatch<AppDispatch>();

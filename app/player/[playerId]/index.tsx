@@ -2,6 +2,7 @@ import { useLocalSearchParams } from 'expo-router';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from '@redux/store';
+
 import PlayerCard from '@components/PlayerCard';
 
 export default function PlayerDetailsScreen() {

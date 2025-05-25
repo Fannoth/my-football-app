@@ -3,6 +3,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
 
 import { BASE_URL } from '@constants/api';
+import { FOOTBALL_API_KEY } from '@env';
+
+console.log('Football API Key:', FOOTBALL_API_KEY);
 
 const api = axios.create({
   baseURL: BASE_URL,

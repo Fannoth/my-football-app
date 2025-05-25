@@ -3,8 +3,8 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut,
   signInWithCredential,
+  signOut,
   GoogleAuthProvider,
   updateProfile,
 } from 'firebase/auth';
@@ -16,10 +16,11 @@ import {
   setDoc,
   serverTimestamp,
 } from 'firebase/firestore';
+
+import { storeUser, clearStoredUser } from './authStorage';
 import { firebaseConfig } from '../firebaseConfig';
 
 const app = initializeApp(firebaseConfig);
-
 export const auth = getAuth(app);
 
 export const db = initializeFirestore(app, {
@@ -35,15 +36,27 @@ export const registerWithEmail = async (email: string, password: string) => {
     email,
     createdAt: serverTimestamp(),
   });
+  const user = { uid: cred.user.uid, email: cred.user.email! };
+  await storeUser(user);
   return cred.user;
 };
 
-export const loginWithEmail = (email: string, password: string) =>
-  signInWithEmailAndPassword(auth, email, password).then((c) => c.user);
-
-export const loginWithGoogle = (idToken: string, accessToken: string) => {
-  const cred = GoogleAuthProvider.credential(idToken, accessToken);
-  return signInWithCredential(auth, cred).then(({ user }) => user);
+export const loginWithEmail = async (email: string, password: string) => {
+  const cred = await signInWithEmailAndPassword(auth, email, password);
+  const user = { uid: cred.user.uid, email: cred.user.email! };
+  await storeUser(user);
+  return cred.user;
 };
 
-export const logoutUser = () => signOut(auth);
+export const loginWithGoogle = async (idToken: string, accessToken: string) => {
+  const credential = GoogleAuthProvider.credential(idToken, accessToken);
+  const { user } = await signInWithCredential(auth, credential);
+  const u = { uid: user.uid, email: user.email! };
+  await storeUser(u);
+  return user;
+};
+
+export const logoutUser = async () => {
+  await signOut(auth);
+  await clearStoredUser();
+};

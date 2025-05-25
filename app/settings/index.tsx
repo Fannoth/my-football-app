@@ -1,15 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { View, Text, StyleSheet, Button, Alert, SafeAreaView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@redux/store';
 import * as Location from 'expo-location';
-import {
-  Camera,
-  CameraType,
-  PermissionStatus,
-  useCameraPermissions,
-  CameraView,
-} from 'expo-camera';
+import { CameraType, PermissionStatus, useCameraPermissions, CameraView } from 'expo-camera';
 import * as Notifications from 'expo-notifications';
 import { logout } from '@redux/slices/authSlice';
 import { useRouter, Stack } from 'expo-router';
@@ -42,7 +36,10 @@ export default function SettingsScreen() {
     Alert.alert('Dostęp do powiadomień przyznany');
   };
 
-  const handleLogout = () => dispatch(logout());
+  const handleLogout = () => {
+    dispatch(logout());
+    router.replace('/login');
+  };
 
   return (
     <>

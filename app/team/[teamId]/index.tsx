@@ -1,21 +1,24 @@
 import { useEffect } from 'react';
 import { Text, StyleSheet, ScrollView, ActivityIndicator, Image } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@redux/store';
 import { getTeamDetails } from '@redux/slices/playersSlice';
+
 import PlayerCard from '@components/PlayerCard';
 
 export default function TeamDetailsScreen() {
   const { teamId } = useLocalSearchParams<{ teamId: string }>();
   const dispatch = useDispatch<AppDispatch>();
-  const router = useRouter();
+
   const { team, loading, error } = useSelector((state: RootState) => state.players);
 
   useEffect(() => {
-    if (teamId) {
-      dispatch(getTeamDetails(teamId));
+    if (!teamId) {
+      return;
     }
+
+    dispatch(getTeamDetails(teamId));
   }, [teamId]);
 
   return (

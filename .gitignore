@@ -19,6 +19,9 @@ yarn-error.log*
 # macOS
 .DS_Store
 
+# build artifacts
+dist/
+
 # Android
 android/.gradle/
 android/app/build/

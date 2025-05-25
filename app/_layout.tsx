@@ -1,13 +1,13 @@
-// app/_layout.tsx
-
-import React, { useState, useEffect } from 'react';
-import { ActivityIndicator, View, Text } from 'react-native';
-import { Tabs, Stack, useRouter } from 'expo-router';
-import { Provider } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { ActivityIndicator, View } from 'react-native';
+import { Stack, useRouter } from 'expo-router';
+import { Provider, useDispatch } from 'react-redux';
 import { store } from '@redux/store';
 import { ErrorBoundary } from '@utils/errorBoundary';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../services/firebaseAuth';
+import { getStoredUser } from '@services/authStorage';
+import { setUser } from '@redux/slices/authSlice';
 
 export default function RootLayout() {
   return (
@@ -20,35 +20,34 @@ export default function RootLayout() {
 }
 
 function AuthGate() {
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState<any>(null);
+  const [user, setLocalUser] = useState<any>(null);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (u) => {
-      setUser(u);
-      setInitializing(false);
-    });
-    return unsubscribe;
+    (async () => {
+      const cached = await getStoredUser();
+      if (cached) {
+        dispatch(setUser(cached));
+        setLocalUser(cached);
+        router.replace('/home');
+        return;
+      }
+
+      const unsub = onAuthStateChanged(auth, (u) => {
+        if (u) {
+          const usr = { uid: u.uid, email: u.email! };
+          dispatch(setUser(usr));
+          setLocalUser(usr);
+          router.replace('/home');
+        } else {
+          router.replace('/register');
+        }
+      });
+      return unsub;
+    })();
   }, []);
 
-  // Pokazujemy loader dopóki nie wiemy, czy jest user czy nie
-  if (initializing) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: '#121212',
-        }}
-      >
-        <ActivityIndicator color="#FF6F00" />
-      </View>
-    );
-  }
-
-  // Jeśli nie ma usera – renderujemy Stack z login/register
   if (!user) {
     return (
       <Stack

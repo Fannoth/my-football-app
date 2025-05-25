@@ -1,5 +1,6 @@
 // redux/slices/authSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { logoutUser } from '@services/firebaseAuth';
 
 interface AuthState {
   user: {
@@ -33,6 +34,7 @@ const authSlice = createSlice({
       state.error = action.payload;
     },
     logout(state: AuthState) {
+      logoutUser();
       state.user = {
         email: '',
         uid: '',

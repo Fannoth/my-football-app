@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
+import { Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@redux/store';
 import { getLeagueTable } from '@redux/slices/teamsSlice';
+
 import TeamCard from '@components/TeamCard';
 
 export default function LeagueDetailsScreen() {
