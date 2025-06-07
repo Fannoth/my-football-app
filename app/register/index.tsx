@@ -15,7 +15,9 @@ export default function RegisterScreen() {
   const handleRegister = async () => {
     try {
       const user = await registerWithEmail(email, password);
+
       dispatch(setUser({ email: user.email, uid: user.uid }));
+
       router.replace('/home');
     } catch (error: any) {
       Alert.alert('Błąd rejestracji', error.message);
