@@ -1,20 +1,42 @@
-import { useState } from 'react';
-import { View, Text, StyleSheet, Button, Alert, SafeAreaView } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, AppDispatch } from '@redux/store';
-import * as Location from 'expo-location';
-import { CameraType, PermissionStatus, useCameraPermissions, CameraView } from 'expo-camera';
-import * as Notifications from 'expo-notifications';
+import { useState, useEffect } from 'react';
 import { logout } from '@redux/slices/authSlice';
 import { useRouter, Stack } from 'expo-router';
+import { RootState, AppDispatch } from '@redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { View, Text, StyleSheet, Button, Alert, SafeAreaView } from 'react-native';
+import { CameraType, PermissionStatus, useCameraPermissions, CameraView } from 'expo-camera';
+
+import * as Location from 'expo-location';
+import * as Notifications from 'expo-notifications';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+    shouldShowBanner: true,
+    shouldShowList: true,
+  }),
+});
 
 export default function SettingsScreen() {
   const dispatch = useDispatch<AppDispatch>();
-  const { user } = useSelector((s: RootState) => s.auth);
+  const { user } = useSelector((state: RootState) => state.auth);
   const router = useRouter();
 
   const [cameraType, setCameraType] = useState<CameraType>('back');
   const [permission, requestPermission] = useCameraPermissions();
+
+  const scheduleTestNotification = async () => {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Powiadomienie testowe 🔔',
+        body: 'To jest testowe powiadomienie!',
+        data: { testData: 'Hello from notification' },
+      },
+      trigger: { seconds: 0 } as Notifications.TimeIntervalTriggerInput,
+    });
+  };
 
   const requestLocation = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
@@ -33,13 +55,24 @@ export default function SettingsScreen() {
     if (status !== 'granted') {
       return Alert.alert('Odmowa dostępu do powiadomień');
     }
-    Alert.alert('Dostęp do powiadomień przyznany');
+
+    Alert.alert('Dostęp do powiadomień przyznany', 'Powiadomienie testowe zostanie wysłane!');
+
+    await scheduleTestNotification();
   };
 
   const handleLogout = () => {
     dispatch(logout());
     router.replace('/login');
   };
+
+  useEffect(() => {
+    const subscription = Notifications.addNotificationReceivedListener((notification) => {
+      console.log('Otrzymano powiadomienie:', notification);
+    });
+
+    return () => subscription.remove();
+  }, []);
 
   return (
     <>

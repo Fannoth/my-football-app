@@ -1,6 +1,7 @@
-import { render, fireEvent } from '@testing-library/react-native';
-import TeamCard from '../components/TeamCard';
 import { useRouter } from 'expo-router';
+import { render, fireEvent } from '@testing-library/react-native';
+
+import TeamCard from '../components/TeamCard';
 
 jest.mock('expo-router', () => ({
   useRouter: jest.fn(),

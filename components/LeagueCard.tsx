@@ -1,5 +1,5 @@
-import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
+import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
 
 interface LeagueCardProps {
   league: {

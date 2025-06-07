@@ -1,4 +1,3 @@
-// redux/slices/authSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { logoutUser } from '@services/firebaseAuth';
 

@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
-import { ActivityIndicator, View } from 'react-native';
-import { Stack, useRouter } from 'expo-router';
-import { Provider, useDispatch } from 'react-redux';
-import { store } from '@redux/store';
-import { ErrorBoundary } from '@utils/errorBoundary';
-import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../services/firebaseAuth';
-import { getStoredUser } from '@services/authStorage';
+import { store } from '@redux/store';
 import { setUser } from '@redux/slices/authSlice';
+import { getStoredUser } from '@services/authStorage';
+import { ErrorBoundary } from '@utils/errorBoundary';
+import { Stack, useRouter } from 'expo-router';
+import { onAuthStateChanged } from 'firebase/auth';
+import { Provider, useDispatch } from 'react-redux';
 
 export default function RootLayout() {
   return (

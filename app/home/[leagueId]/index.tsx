@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, AppDispatch } from '@redux/store';
 import { getLeagueTable } from '@redux/slices/teamsSlice';
+import { useLocalSearchParams } from 'expo-router';
+import { RootState, AppDispatch } from '@redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
 
 import TeamCard from '@components/TeamCard';
 

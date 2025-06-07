@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { setUser } from '@redux/slices/authSlice';
 import { useRouter } from 'expo-router';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@redux/store';
-import { setUser } from '@redux/slices/authSlice';
 import { loginWithEmail, loginWithGoogle } from '@services/firebaseAuth';
+import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 
 import * as Google from 'expo-auth-session/providers/google';
 

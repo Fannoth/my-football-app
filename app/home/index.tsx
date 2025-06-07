@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { Text, StyleSheet, ScrollView, ActivityIndicator, Button } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
 import { getTopLeagues } from '@redux/slices/leaguesSlice';
-import { RootState, AppDispatch } from '@redux/store';
 import { Stack, useRouter } from 'expo-router';
+import { RootState, AppDispatch } from '@redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { Text, StyleSheet, ScrollView, ActivityIndicator, Button } from 'react-native';
 
 import LeagueCard from '@components/LeagueCard';
 
@@ -11,9 +11,11 @@ export default function HomeScreen() {
   const dispatch = useDispatch<AppDispatch>();
   const { leagues, loading, error } = useSelector((state: RootState) => state.leagues);
   const router = useRouter();
+
   useEffect(() => {
     dispatch(getTopLeagues());
   }, []);
+
   return (
     <>
       <Stack.Screen

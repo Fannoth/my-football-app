@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { ActivityIndicator, View } from 'react-native';
-import { useRouter, usePathname } from 'expo-router';
-import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../services/firebaseAuth';
+import { onAuthStateChanged } from 'firebase/auth';
+import { useRouter, usePathname } from 'expo-router';
+import { ActivityIndicator, View } from 'react-native';
 
 export default function IndexScreen() {
   const router = useRouter();

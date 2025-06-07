@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react-native';
+
 import PlayerCard from '../components/PlayerCard';
 
 describe('PlayerCard', () => {
